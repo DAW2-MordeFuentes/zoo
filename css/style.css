@@ -1,0 +1,282 @@
+@import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
+
+body {
+  padding: 0;      /* Por seguridad */
+  margin: 0;
+  height: calc(100vh * 15); /* Mantiene la altura para el scroll */
+  background-color: whitesmoke;
+  font-family: "Aldrich", Courier, monospace;
+  transition: background-color 1s ease;
+  overflow-x: hidden; /* Evita scroll horizontal accidental */
+}
+
+.tri {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  
+  /* Clip-path inicial (oculto) */
+  clip-path: polygon(50% 50%, 50% 50%, 50% 50%);
+  
+  /* La transición se maneja desde JS, pero dejamos una base por seguridad */
+  will-change: transform, opacity, clip-path; 
+}
+
+/* --- TÍTULO (Subimos un poco para dar aire) --- */
+.name {
+  position: fixed;
+  
+  /* CAMBIO: Del 22% lo subimos al 15%. 
+     No está pegado al borde superior, pero tampoco toca al animal. */
+  top: 15%; 
+  left: 0;
+  width: 100%;
+  
+  margin: 0;
+  padding: 0;
+  
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  
+  /* Mantenemos el estilo elegante */
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  font-weight: normal;
+  letter-spacing: 2px;
+  
+  transform: translateY(-50%);
+  z-index: 100;
+  pointer-events: none;
+  background: transparent;
+  transition: opacity 3s ease-in-out;
+}
+
+/* --- ESCENA (Bajamos el animal ligeramente) --- */
+.scene {
+  position: fixed;
+  
+  /* CAMBIO: Del 50% lo bajamos al 55%.
+     Esto aleja la cabeza del animal del texto. */
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Ajustamos ligeramente el tamaño máximo para asegurar la separación */
+  width: 70vmin;
+  height: 70vmin;
+  max-height: 55vh; /* Un pelín más pequeño para garantizar el hueco */
+  max-width: 55vh; 
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+
+.signature {
+  font-family: "Mr Dafoe", cursive;
+  position: fixed;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  color: #111;
+  
+  /* Centrado y rotación */
+  bottom: 20%;
+  right: 10%;
+  transform: rotate(-10deg);
+  
+  /* Tamaño fluido para la firma */
+  font-size: clamp(4rem, 15vw, 12rem);
+  
+  transition: all 0.8s ease-in-out;
+}
+
+/* --- CONTROLES UI --- */
+.scroll-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 24px;
+  
+  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(5px);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 30px;
+  
+  font-family: "Aldrich", sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.scroll-btn:hover {
+  background: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.scroll-btn.active {
+  background: #ff4757; /* Color rojo para indicar 'Parar' */
+  border-color: #ff6b81;
+}
+
+/* --- AJUSTES PARA MÓVILES (Media Queries) --- */
+@media (max-width: 768px) {
+  .name {
+    top: 15%;
+    font-weight: bold;
+  }
+  
+  .signature {
+    bottom: 15%;
+    right: 5%;
+    opacity: 0.8; /* Asegurar visibilidad si está activa */
+  }
+
+  .scroll-btn {
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%); /* Centrar botón en móvil */
+    width: auto;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    padding: 15px 30px; /* Área táctil más grande */
+  }
+  
+  .scroll-btn:hover {
+    transform: translateX(50%) translateY(-2px); /* Mantener centrado en hover */
+  }
+}
+
+/* Clases de utilidad para el JS (si las usas) */
+.scene.nes .tri {
+  /* Si necesitas overrides específicos */
+}
+
+/* --- PANTALLA DE INTRO (Overlay) --- */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  background-color: #1a1a1a; /* Fondo oscuro elegante */
+  z-index: 9999; /* Por encima de todo */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  transition: opacity 1.5s cubic-bezier(0.77, 0, 0.175, 1), 
+              visibility 1.5s linear; /* Transición suave al desaparecer */
+}
+
+/* Clase para ocultar la intro */
+.intro-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-content {
+  text-align: center;
+  color: #fff;
+  font-family: "Aldrich", sans-serif;
+}
+
+.intro-title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  margin: 0 0 1rem 0;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  /* Efecto de degradado sutil en el texto */
+  background: linear-gradient(45deg, #fff, #aaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.intro-subtitle {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: #888;
+  margin-bottom: 3rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.intro-btn {
+  padding: 15px 40px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  font-family: inherit;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.intro-btn:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 20px rgba(255,255,255,0.4);
+  transform: scale(1.05);
+}
+
+
+/* --- OUTRO SCREEN --- */
+.outro-screen {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro con transparencia */
+  z-index: 9999;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease, visibility 1s ease;
+  pointer-events: none;
+}
+
+.outro-screen.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.outro-text {
+  font-family: "Aldrich", sans-serif;
+  color: #fff;
+  font-size: clamp(1.5rem, 4vw, 3rem); /* Tamaño responsive */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 2rem;
+  
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+/* Estado visible del texto */
+.outro-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* El botón de replay reutiliza estilos, pero empieza oculto */
+#replayBtn.hidden {
+  display: none;
+}
