@@ -17,7 +17,7 @@ const startButton = document.getElementById('startBtn')
 const outroScreen = document.getElementById('outro')
 const outroTextEl = document.getElementById('outro-text')
 const replayBtn = document.getElementById('replayBtn')
-const audioPlayer = document.getElementById("audioPlayer")
+const aduio = document.getElementById("audioPlayer")
 
 /* =========================================================
    DATOS Y CONSTANTES
@@ -25,6 +25,9 @@ const audioPlayer = document.getElementById("audioPlayer")
 
 /** Mensajes mostrados en la pantalla final */
 const OUTRO_MESSAGES = [
+  "¡Modesto te queremos!",
+  "¡Que te vaya muy bien!",
+  "¡Te echaremos de menos!",
   "¡Gracias por ver!",
   "ZOO DAW2"
 ]
@@ -42,7 +45,7 @@ const ELASTIC_EASE = "cubic-bezier(0.68, -0.6, 0.32, 1.6)"
 
 /** Definición de cada "set": [nº triángulos, nombre, color RGB fondo] */
 const SETS = {
-  daw: [13, "", "100, 200, 250"],
+  daw: [13, "", "200,200,250"],
   logo: [64, "IES José Mor de Fuentes", "125,219,228"],
   ori: [32, "Abel Oriach - Slowloris", "104,95,184"],
   nes: [22, "Néstor Aísa - Zorro Ártico", "124,189,109"],
@@ -192,6 +195,24 @@ function startAutoScroll() {
 }
 
 /**
+ * Fade out del audio
+ */
+function fadeOutAudio() {
+    let volume = audio.volume;
+
+    const fade = setInterval(() => {
+        if (volume > 0.05) {
+            volume -= 0.05;      // disminuye el volumen poco a poco
+            audio.volume = volume;
+        } else {
+            audio.volume = 0;
+            audio.pause();       // pausa cuando llega a 0
+            clearInterval(fade);
+        }
+    }, 100); // cada 100 ms
+}
+
+/**
  * Reproduce la secuencia de outro: oscurece la pantalla y muestra
  * cada mensaje de OUTRO_MESSAGES con fade in/out. Al terminar,
  * muestra el botón de reinicio. Solo se ejecuta una vez por sesión
@@ -200,6 +221,8 @@ function startAutoScroll() {
 async function playOutroSequence() {
   if (outroPlayed) return
   outroPlayed = true
+  
+  fadeOutAudio()
 
   outroScreen.classList.add('active')
 
@@ -223,7 +246,14 @@ async function playOutroSequence() {
 function startExperience() {
   audioPlayer.play()
   introScreen.classList.add('hidden')
-  setTimeout(() => applySet(keys[0]), 500)
+  setTimeout(() => {
+    applySet(keys[0])
+
+    isPlaying = true
+    autoBtn.innerText = "⏸ PAUSAR"
+    autoBtn.classList.add("active")
+    startAutoScroll()
+  }, 500)
 }
 
 /* =========================================================
@@ -245,7 +275,7 @@ autoBtn.addEventListener("click", () => {
     } else {
       autoIndex = Math.min(Math.floor(window.scrollY / window.innerHeight), keys.length - 1)
     }
-    autoBtn.innerText = "⏸ PAUSE"
+    autoBtn.innerText = "⏸ PAUSAR"
     autoBtn.classList.add("active")
     startAutoScroll()
   } else {
@@ -283,7 +313,7 @@ window.addEventListener("scroll", () => {
     setTimeout(() => {
       const stillAtEnd = Math.min(Math.floor(window.scrollY / window.innerHeight), keys.length - 1) === keys.length - 1
       if (stillAtEnd) playOutroSequence()
-    }, 4000)
+    }, 5000)
   }
 }, { passive: true })
 
