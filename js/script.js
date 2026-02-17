@@ -79,7 +79,13 @@ let isPlaying = false  // Estado del reproductor automático
    ========================================================= */
 
 /** Ajusta la altura total del body para que cada set ocupe un viewport completo */
-document.body.style.height = `calc(100vh * ${keys.length})`
+document.body.style.height = `calc(${window.innerHeight} * ${keys.length})`
+
+window.addEventListener('resize', () => {
+  const vh = window.innerHeight;
+  document.body.style.height = `${vh * keys.length}px`;
+});
+
 
 /* =========================================================
    CREACIÓN DE TRIÁNGULOS
