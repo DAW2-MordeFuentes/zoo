@@ -8,16 +8,17 @@ window.scrollTo(0, 0)
 /* =========================================================
    REFERENCIAS AL DOM
    ========================================================= */
-const scene       = document.querySelector(".scene")
-const buttons     = document.querySelector(".buttons")
+const scene = document.querySelector(".scene")
+const buttons = document.querySelector(".buttons")
 const displayName = document.querySelector(".name")
-const signature   = document.querySelector(".signature")
-const autoBtn     = document.getElementById("autoScrollBtn")
+const signature = document.querySelector(".signature")
+const autoBtn = document.getElementById("autoScrollBtn")
 const introScreen = document.getElementById('intro')
 const startButton = document.getElementById('startBtn')
 const outroScreen = document.getElementById('outro')
 const outroTextEl = document.getElementById('outro-text')
-const replayBtn   = document.getElementById('replayBtn')
+const replayBtn = document.getElementById('replayBtn')
+const audioPlayer = document.getElementById("audioPlayer")
 
 /* =========================================================
    DATOS Y CONSTANTES
@@ -42,34 +43,34 @@ const ELASTIC_EASE = "cubic-bezier(0.68, -0.6, 0.32, 1.6)"
 
 /** Definición de cada "set": [nº triángulos, nombre, color RGB fondo] */
 const SETS = {
-  daw:     [13,  "",                          "100, 200, 250"],
-  logo:    [64,  "IES José Mor de Fuentes",   "125,219,228"],
-  ori:     [32,  "Abel Oriach - Slowloris",   "104,95,184"],
-  nes:     [22,  "Néstor Aísa - Zorro Ártico","124,189,109"],
-  maks:    [29,  "Maksym Hrynenko - Murciélago","229,112,240"],
-  rana:    [30,  "Marcos Martel - Rana",      "65,211,174"],
-  faro:    [29,  "Alberto Faro - Koala",      "214,204,144"],
-  uriol:   [31,  "Javier Uriol - Pingüino",   "224,219,168"],
-  ezq:     [35,  "Adrian Ezquerra - Tucán",   "125,219,228"],
-  jimenez: [35,  "Adrián Jiménez - Cocodrilo","240,241,124"],
-  karla:   [35,  "Karla Gutiérrez- Llamicornio","104,95,184"],
-  fofana:  [40,  "Founeke Fofana - Camaleón", "141,221,255"],
-  ped:     [30,  "Pedro José Torres - Perro", "141,221,255"],
-  mach:    [50,  "Javier Machado - Colibrí",  "141,221,255"],
-  suri:    [100, "Modesto Sierra - Suricato", "141,221,255"]
+  daw: [13, "", "100, 200, 250"],
+  logo: [64, "IES José Mor de Fuentes", "125,219,228"],
+  ori: [32, "Abel Oriach - Slowloris", "104,95,184"],
+  nes: [22, "Néstor Aísa - Zorro Ártico", "124,189,109"],
+  maks: [29, "Maksym Hrynenko - Murciélago", "229,112,240"],
+  rana: [30, "Marcos Martel - Rana", "65,211,174"],
+  faro: [29, "Alberto Faro - Koala", "214,204,144"],
+  uriol: [31, "Javier Uriol - Pingüino", "224,219,168"],
+  ezq: [35, "Adrian Ezquerra - Tucán", "125,219,228"],
+  jimenez: [35, "Adrián Jiménez - Cocodrilo", "240,241,124"],
+  karla: [35, "Karla Gutiérrez- Llamicornio", "104,95,184"],
+  fofana: [40, "Founeke Fofana - Camaleón", "141,221,255"],
+  ped: [30, "Pedro José Torres - Perro", "141,221,255"],
+  mach: [50, "Javier Machado - Colibrí", "141,221,255"],
+  suri: [100, "Modesto Sierra - Suricato", "141,221,255"]
 }
 
 const keys = Object.keys(SETS)
-const MAX  = Math.max(...Object.values(SETS).map(s => s[C]))
+const MAX = Math.max(...Object.values(SETS).map(s => s[C]))
 
 /* =========================================================
    ESTADO GLOBAL
    ========================================================= */
-let currentSet  = null   // Key del set actualmente visible
+let currentSet = null   // Key del set actualmente visible
 let outroPlayed = false  // Evita que el outro se repita en cada scroll
-let autoIndex   = 0      // Índice del set actual en el auto-scroll
+let autoIndex = 0      // Índice del set actual en el auto-scroll
 let autoInterval = null  // Referencia al intervalo del auto-scroll
-let isPlaying   = false  // Estado del reproductor automático
+let isPlaying = false  // Estado del reproductor automático
 
 /* =========================================================
    INICIALIZACIÓN DE LA PÁGINA
@@ -105,11 +106,11 @@ const tris = Array.from({ length: MAX }, (_, i) => {
  */
 function animateGradient(from, to, steps = 60) {
   const fromArr = from.split(",").map(Number)
-  const toArr   = to.split(",").map(Number)
+  const toArr = to.split(",").map(Number)
   let stepCount = 0
 
   function step() {
-    const t     = stepCount / steps
+    const t = stepCount / steps
     const color = fromArr.map((v, i) => Math.round(v + (toArr[i] - v) * t))
     document.body.style.background = `radial-gradient(circle at center, rgba(255,255,255,0.1), rgba(${color.join(",")}, 1))`
     stepCount++
@@ -132,13 +133,13 @@ function applySet(name) {
 
   const previousColor = currentSet ? SETS[currentSet][B] : "224,219,168"
   currentSet = name
-  const set   = SETS[name]
+  const set = SETS[name]
   const count = set[C]
 
   // Fade out del nombre, cambia el texto y fade in
   displayName.style.opacity = 0
   setTimeout(() => {
-    displayName.innerText  = set[N]
+    displayName.innerText = set[N]
     displayName.style.opacity = 1
   }, 1000)
 
@@ -146,8 +147,8 @@ function applySet(name) {
 
   // Activar/desactivar triángulos con delay y duración aleatorios
   tris.forEach(tri => {
-    const i           = +tri.dataset.i
-    const randomDelay    = Math.random() * 400
+    const i = +tri.dataset.i
+    const randomDelay = Math.random() * 400
     const randomDuration = 800 + Math.random() * 600
 
     tri.style.transition = `
@@ -157,13 +158,13 @@ function applySet(name) {
 
     if (i <= count) {
       const num = String(i).padStart(2, "0")
-      tri.style.opacity    = "1"
+      tri.style.opacity = "1"
       tri.style.background = `var(--tri${num}-${name}-bg)`
-      tri.style.clipPath   = `var(--tri${num}-${name}-polygon)`
+      tri.style.clipPath = `var(--tri${num}-${name}-polygon)`
     } else {
-      tri.style.opacity    = "0"
+      tri.style.opacity = "0"
       tri.style.background = "transparent"
-      tri.style.clipPath   = HIDDEN_CLIP
+      tri.style.clipPath = HIDDEN_CLIP
     }
   })
 }
@@ -221,6 +222,7 @@ async function playOutroSequence() {
  * el primer set (daw) tras una pequeña pausa de 500ms.
  */
 function startExperience() {
+  audioPlayer.play()
   introScreen.classList.add('hidden')
   setTimeout(() => applySet(keys[0]), 500)
 }

@@ -77,28 +77,6 @@ body {
   pointer-events: none;
 }
 
-
-.signature {
-  display: none;
-  font-family: "Mr Dafoe", cursive;
-  position: fixed;
-  z-index: 10;
-  opacity: 0;
-  pointer-events: none;
-  user-select: none;
-  color: #111;
-  
-  /* Centrado y rotación */
-  bottom: 20%;
-  right: 10%;
-  transform: rotate(-10deg);
-  
-  /* Tamaño fluido para la firma */
-  font-size: clamp(4rem, 15vw, 12rem);
-  
-  transition: all 0.8s ease-in-out;
-}
-
 /* --- CONTROLES UI --- */
 .scroll-btn {
   position: fixed;
