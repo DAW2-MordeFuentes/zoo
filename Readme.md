@@ -30,4 +30,4 @@ El objetivo era crear un zoo geométrico "Low Poly" utilizando exclusivamente la
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/J-Uriol/Zoo.git
+   git clone https://github.com/DAW2-MordeFuentes/zoo.git
