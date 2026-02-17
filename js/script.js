@@ -28,7 +28,6 @@ const OUTRO_MESSAGES = [
   "¡Modesto te queremos!",
   "¡Que te vaya muy bien!",
   "¡Te echaremos de menos!",
-  "¡Gracias por ver!",
   "ZOO DAW2"
 ]
 
@@ -53,7 +52,7 @@ const SETS = {
   rana: [30, "Marcos Martel - Rana", "65,211,174"],
   faro: [29, "Alberto Faro - Koala", "214,204,144"],
   uriol: [31, "Javier Uriol - Pingüino", "224,219,168"],
-  ezq: [35, "Adrian Ezquerra - Tucán", "125,219,228"],
+  ezq: [35, "Adrián Ezquerra - Tucán", "125,219,228"],
   jimenez: [35, "Adrián Jiménez - Cocodrilo", "240,241,124"],
   karla: [35, "Karla Gutiérrez- Llamicornio", "104,95,184"],
   fofana: [40, "Founeke Fofana - Camaleón", "141,221,255"],
