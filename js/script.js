@@ -237,7 +237,7 @@ function startExperience() {
     applySet(keys[0])
 
     isPlaying = true
-    autoBtn.innerText = "⏸ PAUSAR"
+    autoBtn.innerText = "|| PAUSAR"
     autoBtn.classList.add("active")
     startAutoScroll()
   }, 500)
@@ -262,7 +262,7 @@ autoBtn.addEventListener("click", () => {
     } else {
       autoIndex = Math.min(Math.floor(window.scrollY / window.innerHeight), keys.length - 1)
     }
-    autoBtn.innerText = "⏸ PAUSAR"
+    autoBtn.innerText = "|| PAUSAR"
     autoBtn.classList.add("active")
     startAutoScroll()
   } else {

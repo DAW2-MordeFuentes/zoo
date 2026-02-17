@@ -44,7 +44,7 @@ body {
   justify-content: center;
   
   /* Mantenemos el estilo elegante */
-  font-size: clamp(2rem, 5.5vw, 3rem);
+  font-size: clamp(2rem, 4.5vw, 2.5rem);
   font-weight: normal;
   letter-spacing: 2px;
   
@@ -108,8 +108,8 @@ body {
 }
 
 .scroll-btn.active {
-  background: #ff4757; /* Color rojo para indicar 'Parar' */
-  border-color: #ff6b81;
+  background: #e7717d; /* Color rojo para indicar 'Parar' */
+  border-color: #e7717d;
 }
 
 /* --- AJUSTES PARA MÓVILES (Media Queries) --- */
