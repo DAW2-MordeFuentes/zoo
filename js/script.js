@@ -11,7 +11,6 @@ window.scrollTo(0, 0)
 const scene = document.querySelector(".scene")
 const buttons = document.querySelector(".buttons")
 const displayName = document.querySelector(".name")
-const signature = document.querySelector(".signature")
 const autoBtn = document.getElementById("autoScrollBtn")
 const introScreen = document.getElementById('intro')
 const startButton = document.getElementById('startBtn')
@@ -276,8 +275,6 @@ window.addEventListener("scroll", () => {
   const index = Math.min(Math.floor(window.scrollY / window.innerHeight), keys.length - 1)
 
   if (keys[index] !== currentSet) applySet(keys[index])
-
-  signature.style.opacity = index === 1 ? 0.9 : 0
 
   if (isPlaying) autoIndex = index
 
