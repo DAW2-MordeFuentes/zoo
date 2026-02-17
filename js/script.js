@@ -17,7 +17,7 @@ const startButton = document.getElementById('startBtn')
 const outroScreen = document.getElementById('outro')
 const outroTextEl = document.getElementById('outro-text')
 const replayBtn = document.getElementById('replayBtn')
-const aduio = document.getElementById("audioPlayer")
+const audio = document.getElementById("audioPlayer")
 
 /* =========================================================
    DATOS Y CONSTANTES
@@ -195,24 +195,6 @@ function startAutoScroll() {
 }
 
 /**
- * Fade out del audio
- */
-function fadeOutAudio() {
-    let volume = audio.volume;
-
-    const fade = setInterval(() => {
-        if (volume > 0.05) {
-            volume -= 0.05;      // disminuye el volumen poco a poco
-            audio.volume = volume;
-        } else {
-            audio.volume = 0;
-            audio.pause();       // pausa cuando llega a 0
-            clearInterval(fade);
-        }
-    }, 100); // cada 100 ms
-}
-
-/**
  * Reproduce la secuencia de outro: oscurece la pantalla y muestra
  * cada mensaje de OUTRO_MESSAGES con fade in/out. Al terminar,
  * muestra el botón de reinicio. Solo se ejecuta una vez por sesión
@@ -222,7 +204,6 @@ async function playOutroSequence() {
   if (outroPlayed) return
   outroPlayed = true
   
-  fadeOutAudio()
 
   outroScreen.classList.add('active')
 
