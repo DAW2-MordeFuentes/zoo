@@ -4,6 +4,9 @@
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Alive-green?style=for-the-badge)
 
+## Página publicada
+Puedes ver la página en el siguiente enlace:
+https://daw2-mordefuentes.github.io/zoo/
 
 ## 📖 Descripción
 
