@@ -20,9 +20,10 @@ body {
   
   /* Clip-path inicial (oculto) */
   clip-path: polygon(50% 50%, 50% 50%, 50% 50%);
+  transition: all 0.05s ease-in-out;
   
   /* La transición se maneja desde JS, pero dejamos una base por seguridad */
-  will-change: transform, opacity, clip-path; 
+  /*will-change: transform, opacity, clip-path; */
 }
 
 /* --- TÍTULO (Subimos un poco para dar aire) --- */
@@ -43,7 +44,7 @@ body {
   justify-content: center;
   
   /* Mantenemos el estilo elegante */
-  font-size: clamp(1rem, 2.5vw, 2rem);
+  font-size: clamp(2rem, 5.5vw, 3rem);
   font-weight: normal;
   letter-spacing: 2px;
   
@@ -279,4 +280,13 @@ body {
 /* El botón de replay reutiliza estilos, pero empieza oculto */
 #replayBtn.hidden {
   display: none;
+}
+
+small {
+  display: block;
+  margin-top: 2vh;
+}
+
+small a {
+  color: #ff4757;
 }
