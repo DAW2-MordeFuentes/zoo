@@ -79,6 +79,7 @@ body {
 
 
 .signature {
+  display: none;
   font-family: "Mr Dafoe", cursive;
   position: fixed;
   z-index: 10;
