@@ -25,9 +25,7 @@ const audio = document.getElementById("audioPlayer")
 
 /** Mensajes mostrados en la pantalla final */
 const OUTRO_MESSAGES = [
-  "¡Modesto te queremos!",
-  "¡Que te vaya muy bien!",
-  "¡Te echaremos de menos!",
+  "Promoción 24/26",
   "ZOO DAW2"
 ]
 
@@ -208,7 +206,7 @@ function startAutoScroll() {
 async function playOutroSequence() {
   if (outroPlayed) return
   outroPlayed = true
-  
+
 
   outroScreen.classList.add('active')
 
