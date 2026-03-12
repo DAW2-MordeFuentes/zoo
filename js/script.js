@@ -25,8 +25,8 @@ const audio = document.getElementById("audioPlayer")
 
 /** Mensajes mostrados en la pantalla final */
 const OUTRO_MESSAGES = [
-  "Ies Jose Mor de  Fuentes",
-  "Promoción 24/26",
+  "IES José Mor de Fuentes",
+  "Promoción 2024-2026",
   "ZOO DAW2"
 ]
 
