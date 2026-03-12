@@ -57,7 +57,7 @@ const SETS = {
   fofana: [40, "Founeke Fofana - Camaleón", "141,221,255"],
   ped: [30, "Pedro José Torres - Perro", "141,221,255"],
   mach: [50, "Javier Machado - Colibrí", "141,221,255"],
-  suri: [100, "Modesto Sierra - Suricato", "141,221,255"]
+  suri: [200, "Los profes - Suricato", "141,221,255"]
 }
 
 const keys = Object.keys(SETS)
